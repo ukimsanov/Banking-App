@@ -1,3 +1,5 @@
+# uvicorn main:app --reload
+
 from typing import Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -80,4 +82,3 @@ def delete_expense(expense_id: int, session: SessionDep):
     session.delete(expense)
     session.commit()
     return {"ok": True}
-
