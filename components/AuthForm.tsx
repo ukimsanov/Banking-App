@@ -42,10 +42,11 @@ const AuthForm = ({type}: {type: string}) => {
   })
  
   // 2. Define a submit handler.
-  const onSubmit = async (data: z.infer<typeof
-     formSchema>) => {
-    setIsLoading(true);
+  const onSubmit = async (data: z.infer<typeof 
+    formSchema>) => {
 
+    setIsLoading(true);
+        
     try{
         // Sign up with Appwrite & create plain link token
 
@@ -152,15 +153,16 @@ const AuthForm = ({type}: {type: string}) => {
                     placeholder="Enter your password"
                     />
                     <div className='flex flex-col gap-4'>
-                    <Button type="submit" disabled={isLoading} className='form-btn'>
-                        {isLoading ? (
-                            <>
-                            <Loader2 size={20}
-                            className='animate-spin' /> &nbsp;
-                            Loading...
-                            </>) : type === 'sign-in'
-                                 ? 'Sign In' : 'Sign Up' }
+                    <Button type="submit" disabled={isLoading} className="form-btn">
+                    {isLoading ? (
+                        <>
+                        <Loader2 size={20} className="animate-spin" /> &nbsp; Loading...
+                        </>
+                    ) : (
+                        type === 'sign-in' ? 'Sign In' : 'Sign Up'
+                    )}
                     </Button>
+
                     </div>
                 </form>
             </Form>

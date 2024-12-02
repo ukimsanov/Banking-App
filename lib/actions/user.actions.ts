@@ -5,7 +5,7 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
-export const signIn =async ({ email, password }: signInProps) => {
+export const signIn = async ({ email, password }: signInProps) => {
     try{
         const { account } = await createAdminClient();
         
