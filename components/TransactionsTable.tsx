@@ -22,7 +22,7 @@ const {
 || transactionCategoryStyles.default;
 
     return (
-        <div className={cn('category-badge', borderColor, backgroundColor)}>
+        <div className={cn('category-badge', borderColor, chipBackgroundColor)}>
             <div className={cn('size-2 rounded-full', backgroundColor)}></div>
             <p className={cn('text-[12px] font-medium', textColor)}>
             {category}
@@ -86,7 +86,7 @@ const TransactionsTable = ({ transactions }: TransactionTableProps) => {
                         </TableCell>
 
                         <TableCell className='pl-2 pr-10 max-md:hidden'>
-                        <CategoryBadge category={t.category} />
+                            <CategoryBadge category={t.category} />
                         </TableCell>
                     </TableRow>
                 )
