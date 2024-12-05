@@ -75,6 +75,7 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
     });
     const accountData = accountsResponse.data.accounts[0];
 
+
     // get transfer transactions from appwrite
     // const transferTransactionsData = await getTransactionsByBankId({
     //   bankId: bank.$id,
@@ -147,12 +148,12 @@ export const getInstitution = async ({
   }
 };
 
-// Get transactions
+  //Get transactions
 export const getTransactions = async ({
   accessToken,
 }: getTransactionsProps) => {
   let hasMore = true;
-  let transactions: any = [];
+  let transactions: Array<any> = [];
 
   try {
     // Iterate through each page of new transaction updates for item
