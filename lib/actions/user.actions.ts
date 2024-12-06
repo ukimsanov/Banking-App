@@ -274,8 +274,8 @@ export async function getLoggedInUser() {
     } catch (error) {
         console.log(error);
     }
-  }
 
+  }
   export const getBankByAccountId = async ({ accountId }: getBankByAccountIdProps) => {
     try {
         const { database } = await createAdminClient();
@@ -292,4 +292,5 @@ export async function getLoggedInUser() {
     } catch (error) {
         console.log(error);
     }
+
   }

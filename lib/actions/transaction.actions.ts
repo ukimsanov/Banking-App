@@ -1,7 +1,8 @@
-'use server'
+"use server";
 
 import { ID, Query } from "node-appwrite";
-import { createAdminClient } from "../appwrite"
+import { createAdminClient } from "../appwrite";
+import { parse } from "path";
 import { parseStringify } from "../utils";
 
 const {
@@ -10,10 +11,11 @@ const {
 } = process.env;
 
 export const createTransaction = async (transaction: CreateTransactionProps) => {
-    try{
+    try {
         const { database } = await createAdminClient();
 
-        const newTransaction = await database.createDocument(
+        const newTransaction = await database.
+        createDocument(
             DATABASE_ID!,
             TRANSACTION_COLLECTION_ID!,
             ID.unique(),
@@ -25,39 +27,42 @@ export const createTransaction = async (transaction: CreateTransactionProps) => 
         )
 
         return parseStringify(newTransaction);
-
-    } catch (error) {
+    }
+    catch (error){
         console.log(error);
     }
 }
 
 export const getTransactionsByBankId = async ({bankId}: getTransactionsByBankIdProps) => {
-    try{
+    try {
         const { database } = await createAdminClient();
 
-        const senderTransactions = await database.listDocuments(
+        const senderTransactions = await database.
+        listDocuments(
             DATABASE_ID!,
             TRANSACTION_COLLECTION_ID!,
-            [Query.equal('senderBankId', bankId)]
+            [Query.equal('senderBankId', bankId)],
         )
 
-        const receiverTransactions = await database.listDocuments(
+        const receiverTransactions = await database.
+        listDocuments(
             DATABASE_ID!,
             TRANSACTION_COLLECTION_ID!,
             [Query.equal('receiverBankId', bankId)],
         );
 
         const transactions = {
-            total: senderTransactions.total + receiverTransactions.total,
-            documents: [
-                ...senderTransactions.documents,
-                ...receiverTransactions.documents,
+            total: senderTransactions.total +
+            receiverTransactions.total,
+            documents: 
+            [...senderTransactions.documents,
+            ...receiverTransactions.documents,
             ]
         }
 
         return parseStringify(transactions);
-
-    } catch (error) {
+    }
+    catch (error){
         console.log(error);
     }
 }
