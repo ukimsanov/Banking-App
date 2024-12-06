@@ -328,3 +328,10 @@ declare interface getBankProps {
 declare interface getBankByAccountIdProps {
   accountId: string;
 }
+
+declare interface ProgressProps extends PrimitiveDivProps {
+  indicatorClassName?: string;
+  value?: number | null | undefined;
+  max?: number;
+  getValueLabel?(value: number, max: number): string;
+}
