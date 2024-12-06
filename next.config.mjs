@@ -1,6 +1,9 @@
 import {withSentryConfig} from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    reactStrictMode: true,
+    swcMinify: true,
+};
 
 export default withSentryConfig(nextConfig, {
 // For all available options, see:
@@ -20,7 +23,7 @@ widenClientFileUpload: true,
 
 // Automatically annotate React components to show their full name in breadcrumbs and session replay
 reactComponentAnnotation: {
-enabled: true,
+    enabled: true,
 },
 
 // Uncomment to route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "next-on-pages build"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.6",
