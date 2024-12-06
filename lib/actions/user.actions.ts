@@ -221,7 +221,7 @@ export async function getLoggedInUser() {
         // If the funding source URL is not created, throw an error
         if (!fundingSourceUrl) throw Error;
 
-        // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and sharable ID
+        // Create a bank account using the user ID, item ID, account ID, access token, funding source URL, and shareable ID
         await createBankAccount({
             userId: user.$id,
             bankId: itemId,

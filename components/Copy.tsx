@@ -6,6 +6,8 @@ import { Button } from "./ui/button";
 const Copy = ({ title }: { title: string }) => {
   const [hasCopied, setHasCopied] = useState(false);
 
+
+  // Copys the id to the board
   const copyToClipboard = () => {
     navigator.clipboard.writeText(title);
     setHasCopied(true);
