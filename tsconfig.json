@@ -17,8 +17,10 @@
         "name": "next"
       }
     ],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "library-name": ["./src/types/progress"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
