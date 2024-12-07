@@ -3,6 +3,7 @@ import PaymentTransferForm from '@/components/PaymentTransferForm'
 import { getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 
+export const runtime = 'edge';
 
 const Transfer = async () => {
     const loggedIn = await getLoggedInUser();

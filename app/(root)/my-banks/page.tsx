@@ -4,6 +4,8 @@ import { getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
 import React from 'react'
 
+
+export const runtime = 'edge';
 const MyBanks = async () => {
   const loggedIn = await getLoggedInUser();
 
