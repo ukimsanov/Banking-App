@@ -1,4 +1,5 @@
-import * as Sentry from '@sentry/nextjs';
+// In other files that need Sentry
+import { Sentry } from "@/lib/sentry";
 
 export async function register() {
   if (process.env.NEXT_RUNTIME === 'nodejs') {
