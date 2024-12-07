@@ -6,8 +6,6 @@ import { getLoggedInUser } from '@/lib/actions/user.actions';
 import { formatAmount } from '@/lib/utils';
 import React from 'react'
 
-export const runtime = 'edge';
-
 const TransactionHistory = async ( { searchParams: {id, page}}
   :SearchParamProps) => {
   const currentPage = Number(page as string) || 1;
