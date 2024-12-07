@@ -50,16 +50,3 @@ disableLogger: true,
 // https://vercel.com/docs/cron-jobs
 automaticVercelMonitors: true,
 });
-
-module.exports = {
-    webpack(config) {
-      config.optimization = {
-        ...config.optimization,
-        splitChunks: {
-          ...config.optimization.splitChunks,
-          chunks: 'all',
-        },
-      };
-      return config;
-    },
-  };
