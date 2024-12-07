@@ -6,11 +6,6 @@
 .env
 # dependencies
 /node_modules
-# Allow specific file in the node_modules
-# Allow specific file in the node_modules 
-!node_modules/@radix-ui/react-progress 
-!node_modules/@radix-ui/react-progress/dist 
-!node_modules/@radix-ui/react-progress/dist/index.d.mts
 /.pnp
 .pnp.js
 .yarn/install-state.gz
