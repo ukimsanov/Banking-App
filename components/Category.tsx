@@ -3,8 +3,8 @@ import Image from "next/image";
 import { topCategoryStyles } from "@/constants";
 import { cn } from "@/lib/utils";
 
-// Import CustomProgress instead of Progress
-import { CustomProgress as Progress } from "./ui/CustomProgress";
+// Import CustomProgress without aliasing
+import { CustomProgress } from "./ui/CustomProgress";
 
 const Category = ({ category }: CategoryProps) => {
   const {
@@ -14,7 +14,7 @@ const Category = ({ category }: CategoryProps) => {
     progress: { bg: progressBg, indicator },
     icon,
   } = topCategoryStyles[category.name as keyof typeof topCategoryStyles] ||
-  topCategoryStyles.default;
+    topCategoryStyles.default;
 
   return (
     <div className={cn("gap-[18px] flex p-4 rounded-xl", bg)}>
@@ -26,7 +26,7 @@ const Category = ({ category }: CategoryProps) => {
           <h2 className={cn("font-medium", main)}>{category.name}</h2>
           <h3 className={cn("font-normal", count)}>{category.count}</h3>
         </div>
-        <Progress
+        <CustomProgress
           value={(category.count / category.totalCount) * 100}
           className={cn("h-2 w-full", progressBg)}
           indicatorClassName={cn("h-2 w-full", indicator)}
