@@ -5,11 +5,16 @@ import { getLoggedInUser } from '@/lib/actions/user.actions';
 
 
 const Transfer = async () => {
-  const loggedIn = await getLoggedInUser();
-  const accounts = await getAccounts({ 
-    userId: loggedIn.$id 
-  })
-
+    const loggedIn = await getLoggedInUser();
+  
+    if (!loggedIn || !loggedIn.$id) {
+      return <p>Please log in to view your accounts.</p>;
+    }
+  
+    const accounts = await getAccounts({ 
+      userId: loggedIn.$id
+    });
+  
   if(!accounts) return;
   
   const accountsData = accounts?.data;
