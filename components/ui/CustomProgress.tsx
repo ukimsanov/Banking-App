@@ -1,13 +1,12 @@
 "use client"
 
-import * as React from "react"
-import * as ProgressPrimitive from "@radix-ui/react-progress"
-
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import * as ProgressPrimitive from "@radix-ui/react-progress";
+import { cn } from "@/lib/utils";
 
 // Define CustomProgressProps interface with indicatorClassName
 interface CustomProgressProps extends React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> {
-  indicatorClassName?: string
+  indicatorClassName?: string;
 }
 
 const CustomProgress = React.forwardRef<
@@ -20,6 +19,7 @@ const CustomProgress = React.forwardRef<
       "relative h-2 w-full overflow-hidden rounded-full bg-primary/20",
       className
     )}
+    value={value}
     {...props}
   >
     <ProgressPrimitive.Indicator
@@ -27,7 +27,7 @@ const CustomProgress = React.forwardRef<
       style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
     />
   </ProgressPrimitive.Root>
-))
-CustomProgress.displayName = ProgressPrimitive.Root.displayName
+));
+CustomProgress.displayName = ProgressPrimitive.Root.displayName;
 
-export { CustomProgress }
+export { CustomProgress };
