@@ -6,6 +6,9 @@ import { cn } from "@/lib/utils";
 import { Progress } from "./ui/progress";
 
 const Category = ({ category }: CategoryProps) => {
+  if (!category) {
+    return null; // or a fallback UI
+  }
   const {
     bg,
     circleBg,
