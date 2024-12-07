@@ -3,7 +3,8 @@ import Image from "next/image";
 import { topCategoryStyles } from "@/constants";
 import { cn } from "@/lib/utils";
 
-import { Progress } from "./ui/progress";
+// Import CustomProgress instead of Progress
+import { CustomProgress as Progress } from "./ui/CustomProgress";
 
 const Category = ({ category }: CategoryProps) => {
   const {
