@@ -33,7 +33,7 @@ This application is a project built following [this](https://www.youtube.com/wat
 #### Clone the repository
 ```bash
   git clone https://github.com/rowflynn/Banking-App.git
-  cd Bank-App
+  cd Banking-App
 ```
 
 #### Install all dependencies
@@ -97,22 +97,22 @@ This app requires connections to [Plaid](https://plaid.com/), [Dwolla](https://a
 4. Copy the project ID next to your project's name and paste it in ```.env``` as  ```NEXT_PUBLIC_APPWRITE_PROJECT```
 5. Create API Key with access to all scopes
 6. Copy ```API Secret``` and paste it in ```.env``` as  ```NEXT_APPWRITE_KEY```
-7. Navigate to databases and create a databases
+7. Navigate to databases and create a database
 8. Copy the database ID next to your database's name and paste it in ```.env``` as  ```APPWRITE_DATABASE_ID```
 9. Create a collection with the name ```users```
-10. Copy the collection ID next to your collection's name and paste it in ```.env``` as  ```APPWRITE_USER_COLLECTION_ID```
+10. Copy the collection ID and paste it in ```.env``` as  ```APPWRITE_USER_COLLECTION_ID```
 11. Add the following attribites to the collection:
    ```
    --attributes---
    ```
 12. Create a collection with the name ```transactions```
-13. Copy the collection ID next to your collection's name and paste it in ```.env``` as  ```APPWRITE_TRANSACTION_COLLECTION_ID```
+13. Copy the collection ID and paste it in ```.env``` as  ```APPWRITE_TRANSACTION_COLLECTION_ID```
 14. Add the following attribites to the collection:
    ```
    --attributes---
    ```
 15. Create a collection with the name ```users```
-16. Copy the collection ID next to your collection's name and paste it in ```.env``` as  ```APPWRITE_BANK_COLLECTION_ID```
+16. Copy the collection ID and paste it in ```.env``` as  ```APPWRITE_BANK_COLLECTION_ID```
 17. Add the following attribites to the collection:
    ```
    --attributes---
@@ -128,7 +128,7 @@ This app requires connections to [Plaid](https://plaid.com/), [Dwolla](https://a
 
 #### Host Site with [Vercel](https://vercel.com/)
 
-1. Navigate to Vercel](https://vercel.com/) and create an account
+1. Navigate to [Vercel](https://vercel.com/) and create an account
 2. Add a new project
 3. Import your git repository
 4. Set ```Framework Preset``` to ```Next.js```
