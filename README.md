@@ -45,7 +45,7 @@ This application is a project built following [this](https://www.youtube.com/wat
 
 Create a new file named ```.env``` at the root of your application and copy the following code to it:
 
-```
+```dotenv
 #NEXT
 NEXT_PUBLIC_SITE_URL=localhost:3000
 
