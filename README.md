@@ -1,3 +1,6 @@
+## Collaborative Project
+This project is a collaboration between [ukimsanov](https://github.com/ukimsanov) and [rowflynnn](https://github.com/rowflynn). We have both contributed to its development.
+
 
 # Banking App
 
