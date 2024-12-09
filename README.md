@@ -35,7 +35,7 @@ This application is a project built following [this](https://www.youtube.com/wat
 
 #### Clone the repository
 ```bash
-  git clone https://github.com/rowflynn/Banking-App.git
+  git clone https://github.com/ukimsanov/Banking-App.git
   cd Banking-App
 ```
 
