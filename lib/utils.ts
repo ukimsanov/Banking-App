@@ -195,18 +195,89 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const authFormSchema = (type: string) =>  z.object({
-  // sign up
-  firstName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  lastName: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  address1: type === 'sign-in' ? z.string().optional() : z.string().max(50),
-  city: type === 'sign-in' ? z.string().optional() : z.string().max(50),
-  state: type === 'sign-in' ? z.string().optional() : z.string().min(2).max(2),
-  postalCode: type === 'sign-in' ? z.string().optional() : z.string().min(3).max(6),
-  dateOfBirth: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  ssn: type === 'sign-in' ? z.string().optional() : z.string().min(3),
-  
-  //both
-  email: z.string().email(),
-  password: z.string().min(8),
-})
+export const authFormSchema = (type: string) => {
+  const base = {
+    // sign up fields
+    firstName: type === 'sign-in'
+      ? z.string().optional()
+      : z.string().min(3, { message: 'First name must be at least 3 characters' }),
+    lastName: type === 'sign-in'
+      ? z.string().optional()
+      : z.string().min(3, { message: 'Last name must be at least 3 characters' }),
+    address1: type === 'sign-in'
+      ? z.string().optional()
+      : z.string()
+          .min(1, { message: 'Address is required' })
+          .max(50, { message: 'Address must not exceed 50 characters' })
+          .regex(/^[^<>\"`!\?%~${}\[\]]+$/, { message: 'Address contains invalid characters' }),
+    city: type === 'sign-in'
+      ? z.string().optional()
+      : z.string()
+          .min(1, { message: 'City is required' })
+          .max(50, { message: 'City must not exceed 50 characters' })
+          .regex(/^[^<>\"`!\?%~${}\[\]]+$/, { message: 'City contains invalid characters' }),
+    state: type === 'sign-in'
+      ? z.string().optional()
+      : z.string()
+          .length(2, { message: 'State must be 2-letter code' })
+          .refine(
+            (val) => {
+              const states = [
+                'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'
+              ];
+              return states.includes(val.toUpperCase());
+            },
+            { message: 'State must be a valid US 2-letter code' }
+          ),
+    postalCode: type === 'sign-in'
+      ? z.string().optional()
+      : z.string()
+          .regex(/^\d{5}(?:-\d{4})?$/, { message: 'Postal code must be 5-digit ZIP or ZIP+4' }),
+    dateOfBirth:
+      type === 'sign-in'
+        ? z.string().optional()
+        : z.string()
+            .regex(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'Date must be in MM/DD/YYYY format (e.g., 01/31/1990)' })
+            .refine((str) => {
+              const [m, d, y] = str.split('/').map(Number);
+              const date = new Date(y, m - 1, d);
+              return date.getFullYear() === y && date.getMonth() === m - 1 && date.getDate() === d;
+            }, { message: 'Invalid date. Please use MM/DD/YYYY' })
+            .refine((str) => {
+              const [m, d, y] = str.split('/').map(Number);
+              const dob = new Date(y, m - 1, d);
+              const now = new Date();
+              let age = now.getFullYear() - dob.getFullYear();
+              const mDiff = now.getMonth() - dob.getMonth();
+              if (mDiff < 0 || (mDiff === 0 && now.getDate() < dob.getDate())) {
+                age--;
+              }
+              return age >= 18 && age <= 125;
+            }, { message: 'Age must be between 18 and 125 years' }),
+    ssn: type === 'sign-in'
+      ? z.string().optional()
+      : z.string()
+          .regex(/^\d{4}$|^\d{9}$/, { message: 'SSN must be last 4 or full 9 digits' }),
+    // both
+    email: z.string().email({ message: 'Please enter a valid email address' }),
+    password: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+    // confirm password only on sign-up
+    confirmPassword:
+      type === 'sign-in'
+        ? z.string().optional()
+        : z.string().min(8, { message: 'Confirm Password must be at least 8 characters' }),
+  };
+
+  const schema = z.object(base);
+  // Only enforce password confirmation on sign-up
+  if (type !== 'sign-in') {
+    return schema.refine(
+      (data) => data.password === data.confirmPassword,
+      {
+        message: 'Passwords must match',
+        path: ['confirmPassword'],
+      }
+    );
+  }
+  return schema;
+};
