@@ -25,14 +25,14 @@ body {
 
 .glassmorphism {
   background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(0.25rem);
+  -webkit-backdrop-filter: blur(0.25rem);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  width: 3px;
-  height: 3px;
-  border-radius: 2px;
+  width: 0.1875rem;
+  height: 0.1875rem;
+  border-radius: 0.125rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -41,7 +41,7 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: #5c5c7b;
-  border-radius: 50px;
+  border-radius: 3.125rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
@@ -70,43 +70,43 @@ body {
   }
 
   .text-10 {
-    @apply text-[10px] leading-[14px];
+    @apply text-[0.625rem] leading-[0.875rem];
   }
 
   .text-12 {
-    @apply text-[12px] leading-[16px];
+    @apply text-[0.75rem] leading-[1rem];
   }
 
   .text-14 {
-    @apply text-[14px] leading-[20px];
+    @apply text-[0.875rem] leading-[1.25rem];
   }
 
   .text-16 {
-    @apply text-[16px] leading-[24px];
+    @apply text-[1rem] leading-[1.5rem];
   }
 
   .text-18 {
-    @apply text-[18px] leading-[22px];
+    @apply text-[1.125rem] leading-[1.375rem];
   }
 
   .text-20 {
-    @apply text-[20px] leading-[24px];
+    @apply text-[1.25rem] leading-[1.5rem];
   }
 
   .text-24 {
-    @apply text-[24px] leading-[30px];
+    @apply text-[1.5rem] leading-[1.875rem];
   }
 
   .text-26 {
-    @apply text-[26px] leading-[32px];
+    @apply text-[1.625rem] leading-[2rem];
   }
 
   .text-30 {
-    @apply text-[30px] leading-[38px];
+    @apply text-[1.875rem] leading-[2.375rem];
   }
 
   .text-36 {
-    @apply text-[36px] leading-[44px];
+    @apply text-[2.25rem] leading-[2.75rem];
   }
 
   /* Home */
