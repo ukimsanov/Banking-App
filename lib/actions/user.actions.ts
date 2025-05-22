@@ -33,7 +33,17 @@ export const getUserInfo = async ({ userId }: getUserInfoProps) => {
 
 export const signIn = async ({ email, password }: signInProps) => {
     try{
-        const { account } = await createAdminClient();
+        const { account, database } = await createAdminClient();
+        // Proactively check if email is registered
+        const existingUsers = await database.listDocuments(
+            DATABASE_ID!,
+            USER_COLLECTION_ID!,
+            [Query.equal('email', [email])]
+        );
+        if (existingUsers.total === 0) {
+            return { error: 'user_not_found', message: 'Email is not registered' };
+        }
+
         const session = await account.
         createEmailPasswordSession(email, password);
 
@@ -47,8 +57,17 @@ export const signIn = async ({ email, password }: signInProps) => {
         const user = await getUserInfo({ userId: session.userId});
 
         return parseStringify(user);
-    } catch (error) {
+    } catch (error: any) {
         console.log('Error', error);
+        
+        // Return specific error codes for different error types
+        if (error.type === 'user_invalid_credentials') {
+            return { error: 'invalid_credentials', message: 'Invalid email or password' };
+        } else if (error.code === 404) {
+            return { error: 'user_not_found', message: 'Email is not registered' };
+        } else {
+            return { error: 'auth_error', message: 'Authentication failed. Please try again.' };
+        }
     }
 }
 
@@ -59,6 +78,15 @@ export const signUp = async ({ password, ...userData}: SignUpParams) => {
 
     try{
         const { account, database } = await createAdminClient();
+        // Proactively check if email already exists
+        const existing = await database.listDocuments(
+            DATABASE_ID!,
+            USER_COLLECTION_ID!,
+            [Query.equal('email', [email])]
+        );
+        if (existing.total > 0) {
+            return { error: 'email_exists', message: 'An account with this email already exists.' };
+        }
 
         newUserAccount = await account.create(
             ID.unique(), 
@@ -101,8 +129,26 @@ export const signUp = async ({ password, ...userData}: SignUpParams) => {
         });
 
         return parseStringify(newUser);
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error', error);
+        
+        // Handle specific error cases
+        if (error.code === 409) {
+            return { 
+                error: 'email_exists', 
+                message: 'An account with this email already exists.'
+            };
+        } else if (error.message?.includes('Dwolla customer')) {
+            return {
+                error: 'dwolla_error',
+                message: 'Error creating customer profile. Please check your information, especially the date format (YYYY-MM-DD).'
+            };
+        } else {
+            return {
+                error: 'signup_error',
+                message: 'Registration failed. Please check your information and try again.'
+            };
+        }
     }
 }
 
