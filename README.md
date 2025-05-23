@@ -1,7 +1,6 @@
 ## Collaborative Project
 This project is a collaboration between [ukimsanov](https://github.com/ukimsanov) and [rowflynnn](https://github.com/rowflynn). We have both contributed to its development.
 
-
 # Banking App
 
 This is a fully functional bank application to manage your transactions and transfers, check your balance and link your bank accounts.
