@@ -27,10 +27,11 @@ const RecentTransactions = ({
             <h2 className='recent-transactions-label'>
                 Recent transactions
             </h2>
-            <Link 
-            href={`/transaction-history/?id=${appwriteItemId}`} 
-            className="view-all-btn">
-                View all
+            <Link
+              href={`/transaction-history/?id=${appwriteItemId}`}
+              className="view-all-btn px-3 py-1 rounded transition-colors text-primary hover:bg-gray-100 hover:text-primary-700"
+            >
+              View all
             </Link>
         </header>
 
@@ -38,11 +39,15 @@ const RecentTransactions = ({
         className="w-full">
             <TabsList className='recent-transactions-tablist'>
                 {accounts.map((account: Account) => (
-                    <TabsTrigger key={account.id} value={account.appwriteItemId}>
+                    <TabsTrigger
+                      key={account.id}
+                      value={account.appwriteItemId}
+                      className="px-3 py-1 rounded transition-colors data-[state=inactive]:hover:bg-gray-100 data-[state=inactive]:hover:text-primary"
+                    >
                         <BankTabItem
-                            key={account.id}
-                            account={account}
-                            appwriteItemId={appwriteItemId}
+                          key={account.id}
+                          account={account}
+                          appwriteItemId={appwriteItemId}
                         />
                     </TabsTrigger>
                 ))}
