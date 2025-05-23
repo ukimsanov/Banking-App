@@ -36,9 +36,14 @@ const Sidebar = ({ user }: SiderbarProps) => {
                 pathname.startsWith(`${item.route}/`)
 
                 return (
-                    <Link href={item.route} 
-                    key={item.label}
-                    className={cn('sidebar-link', {'bg-bank-gradient': isActive })}
+                    <Link
+                      href={item.route}
+                      key={item.label}
+                      className={cn(
+                        'sidebar-link flex items-center gap-2 px-3 py-2 rounded transition-colors',
+                        'hover:bg-gray-100 hover:text-primary',
+                        { 'bg-bank-gradient text-white': isActive }
+                      )}
                     >
                         <div className='relative size-6'>
                             <Image
@@ -51,7 +56,8 @@ const Sidebar = ({ user }: SiderbarProps) => {
                              />
                         </div>
                         <p className={cn(
-                            'sidebar-label', {'!text-white': isActive}
+                            'sidebar-label',
+                            { '!text-white': isActive }
                         )}>
                             {item.label}
                         </p>
