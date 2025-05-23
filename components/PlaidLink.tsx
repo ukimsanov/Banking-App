@@ -42,12 +42,12 @@ const PlaidLink = ({ user, variant}: PlaidLinkProps) => {
         <Button 
         onClick={() => open()}
         disabled={!ready}
-        className='plaidlink-primary'>
+        className='plaidlink-primary hover:bg-gray-100 hover:text-primary transition-colors'>
             Connect bank
         </Button>
     ) : variant === "ghost" ? (
         <Button onClick={()=> open()} variant="ghost"
-        className="plaidlink-ghost">
+        className="plaidlink-ghost flex items-center gap-2 px-3 py-2 rounded transition-colors hover:bg-gray-100 hover:text-primary">
             <Image
                 src="/icons/connect-bank.svg"
                 alt="connect bank"
