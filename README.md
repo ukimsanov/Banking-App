@@ -5,9 +5,6 @@ This project is a collaboration between [ukimsanov](https://github.com/ukimsanov
 
 This is a fully functional bank application to manage your transactions and transfers, check your balance and link your bank accounts.
 
-This application is a project built following [this](https://www.youtube.com/watch?v=PuOVqP_cjkE) guide.
-
-
 ## Tech Stack
 
 
