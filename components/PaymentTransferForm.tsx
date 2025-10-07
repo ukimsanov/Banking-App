@@ -6,11 +6,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { toast } from "sonner";
 
 import { createTransfer } from "@/lib/actions/dwolla.actions";
 import { createTransaction } from "@/lib/actions/transaction.actions";
 import { getBank, getBankByAccountId } from "@/lib/actions/user.actions";
-import { decryptId } from "@/lib/utils";
+import { decryptId, formatAmount } from "@/lib/utils";
 
 import { BankDropdown } from "./BankDropdown";
 import { Button } from "./ui/button";
@@ -29,7 +30,17 @@ import { Textarea } from "./ui/textarea";
 const formSchema = z.object({
   email: z.string().email("Invalid email address"),
   name: z.string().min(4, "Transfer note is too short"),
-  amount: z.string().min(4, "Amount is too short"),
+  amount: z.string()
+    .min(1, "Amount is required")
+    .regex(/^\d+\.?\d{0,2}$/, "Amount must be a valid number (e.g., 10.50)")
+    .refine(val => {
+      const num = parseFloat(val);
+      return !isNaN(num) && num >= 0.01;
+    }, "Minimum transfer amount is $0.01")
+    .refine(val => {
+      const num = parseFloat(val);
+      return !isNaN(num) && num <= 100000;
+    }, "Maximum transfer amount is $100,000"),
   senderBank: z.string().min(4, "Please select a valid bank account"),
   sharableId: z.string().min(8, "Please select a valid sharable Id"),
 });
@@ -57,6 +68,15 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
       const receiverBank = await getBankByAccountId({
         accountId: receiverAccountId,
       });
+
+      if (!receiverBank) {
+        toast.error('Transfer Failed', {
+          description: 'Recipient bank account not found. Please check the shareable ID.'
+        });
+        setIsLoading(false);
+        return;
+      }
+
       const senderBank = await getBank({ documentId: data.senderBank });
 
       const transferParams = {
@@ -82,12 +102,22 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
         const newTransaction = await createTransaction(transaction);
 
         if (newTransaction) {
+          toast.success('Transfer Successful!', {
+            description: `${formatAmount(parseFloat(data.amount))} sent to ${data.email}`
+          });
           form.reset();
           router.push("/");
         }
+      } else {
+        toast.error('Transfer Failed', {
+          description: 'Unable to process the transfer. Please try again.'
+        });
       }
     } catch (error) {
       console.error("Submitting create transfer request failed: ", error);
+      toast.error('Transfer Failed', {
+        description: 'An error occurred while processing your transfer. Please try again.'
+      });
     }
 
     setIsLoading(false);

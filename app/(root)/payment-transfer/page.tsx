@@ -7,22 +7,22 @@ export const runtime = 'edge';
 
 const Transfer = async () => {
     const loggedIn = await getLoggedInUser();
-  
+
     if (!loggedIn || !loggedIn.$id) {
       return <p>Please log in to view your accounts.</p>;
     }
-  
-    const accounts = await getAccounts({ 
+
+    const accounts = await getAccounts({
       userId: loggedIn.$id
     });
-  
+
   if(!accounts) return;
-  
+
   const accountsData = accounts?.data;
 
   return (
     <section className="payment-transfer">
-      <HeaderBox 
+      <HeaderBox
         title="Payment Transfer"
         subtext="Please provide any specific details or notes related to the payment transfer"
       />
@@ -34,4 +34,4 @@ const Transfer = async () => {
   )
 }
 
-export default Transfer
+export default Transfer;

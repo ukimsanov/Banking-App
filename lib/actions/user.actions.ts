@@ -51,7 +51,7 @@ export const signIn = async ({ email, password }: signInProps) => {
             path: "/",
             httpOnly: true,
             sameSite: "strict",
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
         });
         
         const user = await getUserInfo({ userId: session.userId});
@@ -125,7 +125,7 @@ export const signUp = async ({ password, ...userData}: SignUpParams) => {
             path: "/",
             httpOnly: true,
             sameSite: "strict",
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
         });
 
         return parseStringify(newUser);

@@ -24,6 +24,7 @@ import { AlertCircle, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { signIn, signUp } from '@/lib/actions/user.actions'
 import PlaidLink from './PlaidLink'
+import { toast } from 'sonner'
 
 
 const AuthForm = ({type}: {type: string}) => {
@@ -74,12 +75,18 @@ const AuthForm = ({type}: {type: string}) => {
             }
 
             const response = await signUp(userData);
-            
+
             if (response?.error) {
                 setAuthError(response.message);
+                toast.error('Sign Up Failed', {
+                    description: response.message
+                });
                 return;
             }
-            
+
+            toast.success('Account Created!', {
+                description: 'Please connect your bank account to continue.'
+            });
             setUser(response);
         }
 
@@ -89,21 +96,33 @@ const AuthForm = ({type}: {type: string}) => {
                  password: data.password,
              });
              console.log('sign-in response', response);
-             
+
              if (response?.error) {
                  setAuthError(response.message);
+                 toast.error('Sign In Failed', {
+                     description: response.message
+                 });
                  return;
              }
 
              if (response) {
+                toast.success('Welcome back!', {
+                    description: 'Redirecting to your dashboard...'
+                });
                 router.push('/');
              } else {
                 setAuthError('Authentication failed. Please check your credentials.');
+                toast.error('Sign In Failed', {
+                    description: 'Authentication failed. Please check your credentials.'
+                });
              }
         }
     } catch (error) {
         console.log(error);
         setAuthError("An unexpected error occurred. Please try again.");
+        toast.error('Unexpected Error', {
+            description: 'An unexpected error occurred. Please try again.'
+        });
     } finally {
         setIsLoading(false);
     }
